@@ -9,7 +9,6 @@ public class BaseTower : MonoBehaviour
     private float timeSinceLastFire = 0f;
     private Vector3 transformOffset = new Vector3(.5f, .5f, 0);
 
-
     private void Update()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position + transformOffset, towerStatData.range);

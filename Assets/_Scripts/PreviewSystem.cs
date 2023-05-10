@@ -65,7 +65,6 @@ public class PreviewSystem : MonoBehaviour
         c.a = 0.4f;
         cellIndicatorSR.material.color = c;
         previewMaterialInstance.color = c;
-        Debug.Log(previewMaterialInstance.color);
     }
 
     private void MoveCursor(Vector3 position)
