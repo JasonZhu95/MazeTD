@@ -99,27 +99,6 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-    //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-    //{
-    //    bool enemyValidity = false;
-    //    GridData selectedData = objectData;
-
-    //    // Check if an enemy currently occupies the space
-    //    Vector2 gridPosition2D = new Vector2(gridPosition.x, gridPosition.y);
-    //    Collider2D[] hitColliders = Physics2D.OverlapBoxAll(gridPosition2D + new Vector2(.5f, 2.5f), new Vector2(1f, 1f), 0f);
-
-    //    foreach (var hitCollider in hitColliders)
-    //    {
-    //        Enemy enemy = hitCollider.GetComponent<Enemy>();
-    //        if (enemy != null)
-    //        {
-    //            enemyValidity = true;
-    //        }
-    //    }
-
-    //    return selectedData.CanPlaceObjectAt(gridPosition, database.towersData[selectedObjectIndex].Size) && !enemyValidity;
-    //}
-
     public void StopPlacement()
     {
         if (buildingState == null)
