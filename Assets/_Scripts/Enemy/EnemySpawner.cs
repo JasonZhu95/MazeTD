@@ -77,6 +77,7 @@ public class EnemySpawner : MonoBehaviour
         }
         if(listOfEnemies.Count == 0)
         {
+            startWaveButton.interactable = true;
             startWaveButtonAnim.SetBool("start", false);
             startSpawning = false;
             enemiesSpawned = 0;
