@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3945395972314862180}
   - component: {fileID: 5103056093288430619}
   - component: {fileID: -5679096332005536058}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: ArrowTowerParent
-  m_TagString: Untagged
+  m_TagString: IgnorePathfinding
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!1 &3945395973412162832
 GameObject:

@@ -9,13 +9,25 @@ public class BaseTower : MonoBehaviour
     private float timeSinceLastFire = 0f;
     private Vector3 transformOffset = new Vector3(.5f, .5f, 0);
 
+    private Enemy firstEnemy;
+
     private void Update()
+    {
+        Fire();
+    }
+
+    private void FindFirstEnemy()
+    {
+        
+    }
+
+    private void Fire()
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position + transformOffset, towerStatData.range);
         foreach (var hitCollider in hitColliders)
         {
             Enemy enemy = hitCollider.GetComponent<Enemy>();
-            if (enemy != null)
+            if (enemy != null && enemy == firstEnemy)
             {
                 if (timeSinceLastFire >= towerStatData.fireRate)
                 {

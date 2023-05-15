@@ -7,14 +7,6 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new Dictionary<Vector3Int, PlacementData>();
 
-    public void DebugDictionaryValues()
-    {
-        foreach (var obj in placedObjects)
-        {
-            Debug.Log(obj + " " + obj.Value.PlacedObjectIndex);
-        }
-    }
-
     public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -41,6 +33,26 @@ public class GridData
             }
         }
         return returnVal;
+    }
+
+    internal int GetRepresentationIndex(Vector3Int gridPosition)
+    {
+        if (placedObjects.ContainsKey(gridPosition) == false)
+        {
+            return -1;
+        }
+        else
+        {
+            return placedObjects[gridPosition].PlacedObjectIndex;
+        }
+    }
+
+    internal void RemoveObjectAt(Vector3Int gridPosition)
+    {
+        foreach( var pos in placedObjects[gridPosition].occupiedPositions)
+        {
+            placedObjects.Remove(pos);
+        }
     }
 
     public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)

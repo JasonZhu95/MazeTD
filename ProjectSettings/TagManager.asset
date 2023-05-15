@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - IgnorePathfinding
+  - EnemyTarget
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,8 +17,8 @@ TagManager:
   - Background
   - Mouse
   - Towers
-  - 
-  - 
+  - TowerPlacing
+  - Enemy
   - 
   - 
   - 

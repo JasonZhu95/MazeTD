@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Pathfinding;
 
 public class PlacementSystem : MonoBehaviour
 {
-    [SerializeField] GameObject mouseIndicator;
     [SerializeField] Grid grid;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private TowerDatabaseSO database;
@@ -16,27 +16,66 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private TowerPlacer towerPlacer;
 
     private GridData objectData;
-    private int selectedObjectIndex = -1;
     private Vector3Int lastDetectedPosition = Vector3Int.zero;
+
+    // Variables for Pathfinding placement validity
+    [SerializeField] private Seeker seeker;
+    [SerializeField] private GameObject endOfPath;
+    private Path path;
+
+    IBuildingState buildingState;
 
     private void Start()
     {
         StopPlacement();
         objectData = new GridData();
+        seeker.StartPath(seeker.gameObject.transform.position, endOfPath.transform.position, OnPathComplete);
+    }
+
+    private void Update()
+    {
+        if (buildingState == null)
+        {
+            return;
+        }
+        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        Vector3 mousePositionOutsideGrid = inputManager.GetCursorAnyPosition();
+        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+
+        if (lastDetectedPosition != gridPosition)
+        {
+            buildingState.UpdateState(gridPosition);
+            lastDetectedPosition = gridPosition;
+        }
+    }
+
+    private void OnPathComplete(Path p)
+    {
+        if (!p.error)
+        {
+            path = p;
+        }
+        else
+        {
+            Debug.Log("Unable to find a valid path");
+        }
     }
 
     public void StartPlacement(int ID)
     {
         StopPlacement();
-        mouseIndicator.SetActive(true);
-        selectedObjectIndex = database.towersData.FindIndex(data => data.ID == ID);
-        if (selectedObjectIndex < 0)
-        {
-            Debug.LogError($"No ID found {ID}");
-            return;
-        }
         gridVisualization.SetActive(true);
-        preview.StartShowingPlacementPreview(database.towersData[selectedObjectIndex].Prefab, database.towersData[selectedObjectIndex].Size);
+        buildingState = new PlacementState(ID, grid, preview, database, objectData, towerPlacer);
+
+        inputManager.OnClicked += PlaceStructure;
+        inputManager.OnExit += StopPlacement;
+    }
+
+    public void StartRemoving()
+    {
+        StopPlacement();
+        gridVisualization.SetActive(true);
+        buildingState = new RemovingState(grid, preview, objectData, towerPlacer);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -50,73 +89,48 @@ public class PlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
-        if ( placementValidity == false)
+        buildingState.OnAction(gridPosition);
+
+        AstarPath.active.Scan(AstarPath.active.data.graphs[1]);
+        seeker.StartPath(seeker.gameObject.transform.position, endOfPath.transform.position, OnPathComplete);
+        if (path.vectorPath[path.vectorPath.Count - 1] != endOfPath.transform.position)
         {
-            invalidAudioSource.Play();
+            Debug.Log("INVALID PATH");
+        }
+    }
+
+    //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+    //{
+    //    bool enemyValidity = false;
+    //    GridData selectedData = objectData;
+
+    //    // Check if an enemy currently occupies the space
+    //    Vector2 gridPosition2D = new Vector2(gridPosition.x, gridPosition.y);
+    //    Collider2D[] hitColliders = Physics2D.OverlapBoxAll(gridPosition2D + new Vector2(.5f, 2.5f), new Vector2(1f, 1f), 0f);
+
+    //    foreach (var hitCollider in hitColliders)
+    //    {
+    //        Enemy enemy = hitCollider.GetComponent<Enemy>();
+    //        if (enemy != null)
+    //        {
+    //            enemyValidity = true;
+    //        }
+    //    }
+
+    //    return selectedData.CanPlaceObjectAt(gridPosition, database.towersData[selectedObjectIndex].Size) && !enemyValidity;
+    //}
+
+    public void StopPlacement()
+    {
+        if (buildingState == null)
+        {
             return;
         }
-        validAudioSource.Play();
-        int index = towerPlacer.PlaceObject(database.towersData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition));
-
-        GridData selectedData = objectData;
-        selectedData.AddObjectAt(gridPosition, database.towersData[selectedObjectIndex].Size, database.towersData[selectedObjectIndex].ID, index);
-        preview.UpdatePosition(grid.CellToWorld(gridPosition), false);
-    }
-
-    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-    {
-        bool enemyValidity = false;
-        GridData selectedData = objectData;
-
-        // Check if an enemy currently occupies the space
-        Vector2 gridPosition2D = new Vector2(gridPosition.x, gridPosition.y);
-        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(gridPosition2D + new Vector2(.5f, 2.5f), new Vector2(1f, 1f), 0f);
-
-        foreach (var hitCollider in hitColliders)
-        {
-            Enemy enemy = hitCollider.GetComponent<Enemy>();
-            if (enemy != null)
-            {
-                enemyValidity = true;
-            }
-        }
-
-        return selectedData.CanPlaceObjectAt(gridPosition, database.towersData[selectedObjectIndex].Size) && !enemyValidity;
-    }
-
-    private void StopPlacement()
-    {
-        selectedObjectIndex = -1;
         gridVisualization.SetActive(false);
-        preview.StopShowingPreview();
-        mouseIndicator.SetActive(false);
+        buildingState.EndState();
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
         lastDetectedPosition = Vector3Int.zero;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            objectData.DebugDictionaryValues();
-        }
-        if (selectedObjectIndex < 0)
-        {
-            return;
-        }
-        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-        Vector3 mousePositionOutsideGrid = inputManager.GetCursorAnyPosition();
-        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
-
-        if (lastDetectedPosition != gridPosition)
-        {
-            mouseIndicator.transform.position = mousePositionOutsideGrid;
-
-            bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
-            preview.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
-            lastDetectedPosition = gridPosition;
-        }
+        buildingState = null;
     }
 }

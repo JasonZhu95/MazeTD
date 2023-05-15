@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Pathfinding;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,13 +21,15 @@ public class Enemy : MonoBehaviour
 
     private Path path;
     private int currentWaypoint = 0;
-    private bool reachedEndOfPath = false;
     private Seeker seeker;
     private Rigidbody2D rb;
     [SerializeField] private Canvas healthBarCanvas;
 
+    public static event Action<Enemy> OnEnemyDeath;
+
     private void Awake()
     {
+        target = GameObject.FindGameObjectWithTag("EnemyTarget").transform;
     }
 
     private void Start()
@@ -43,15 +46,6 @@ public class Enemy : MonoBehaviour
         if (path == null)
         {
             return;
-        }
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            reachedEndOfPath = true;
-            return;
-        }
-        else
-        {
-            reachedEndOfPath = false;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -118,5 +112,10 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        OnEnemyDeath?.Invoke(this);
     }
 }

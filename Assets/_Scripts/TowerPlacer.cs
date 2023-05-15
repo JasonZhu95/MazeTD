@@ -11,7 +11,18 @@ public class TowerPlacer : MonoBehaviour
     {
         GameObject newObject = Instantiate(prefab);
         newObject.transform.position = position;
+        newObject.layer = LayerMask.NameToLayer("Towers");
         placedGameObjects.Add(newObject);
         return placedGameObjects.Count - 1;
+    }
+
+    internal void RemoveObjectAt(int gameObjectIndex)
+    {
+        if (placedGameObjects.Count <= gameObjectIndex || placedGameObjects[gameObjectIndex] == null)
+        {
+            return;
+        }
+        Destroy(placedGameObjects[gameObjectIndex]);
+        placedGameObjects[gameObjectIndex] = null;
     }
 }
