@@ -15,6 +15,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI coinsText;
 
+    private bool gameOver = false;
+    [SerializeField] private GameObject GameOverCanvas;
+
     private void Start()
     {
         CurrentHealth = startingHealth;
@@ -27,10 +30,11 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(int amount)
     {
         CurrentHealth -= amount;
-        if (CurrentHealth <= 0)
+        if (CurrentHealth <= 0 && !gameOver)
         {
             // Game Over Stuff
-            Debug.Log("Game Over");
+            gameOver = true;
+            GameOverCanvas.SetActive(true);
         }
 
         UpdateHealthUI();
