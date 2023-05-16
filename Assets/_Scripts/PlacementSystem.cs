@@ -91,7 +91,7 @@ public class PlacementSystem : MonoBehaviour
 
         buildingState.OnAction(gridPosition);
 
-        AstarPath.active.Scan(AstarPath.active.data.graphs[1]);
+        AstarPath.active.Scan(AstarPath.active.data.graphs[0]);
         seeker.StartPath(seeker.gameObject.transform.position, endOfPath.transform.position, OnPathComplete);
         if (path.vectorPath[path.vectorPath.Count - 1] != endOfPath.transform.position)
         {

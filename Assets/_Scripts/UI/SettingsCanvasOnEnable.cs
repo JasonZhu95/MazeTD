@@ -14,6 +14,7 @@ public class SettingsCanvasOnEnable : MonoBehaviour
 
     public void CloseCanvas()
     {
+        Time.timeScale = 1f;
         anim.SetBool("start", false);
     }
 
