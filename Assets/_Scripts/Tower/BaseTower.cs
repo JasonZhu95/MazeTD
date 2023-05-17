@@ -5,43 +5,37 @@ using UnityEngine;
 public class BaseTower : MonoBehaviour
 {
     public TowerStatData towerStatData;
+    private EnemySpawner enemySpawner;
 
-    private float timeSinceLastFire = 0f;
+    protected float timeSinceLastFire = 0f;
     private Vector3 transformOffset = new Vector3(.5f, .5f, 0);
+    private GameObject finalEnemyDestination;
 
-    private Enemy firstEnemy;
-
-    private void Update()
+    private void Start()
     {
-        Fire();
+        enemySpawner = FindObjectOfType<EnemySpawner>();
+        finalEnemyDestination = GameObject.FindWithTag("EnemyTarget");
     }
 
-    private void FindFirstEnemy()
+    protected Enemy FindTarget()
     {
-        
-    }
-
-    private void Fire()
-    {
+        float shortestDistance = Mathf.Infinity;
+        int closestEnemyIndex = 0;
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position + transformOffset, towerStatData.range);
-        foreach (var hitCollider in hitColliders)
+        for (int i = 0; i < hitColliders.Length; i++)
         {
-            Enemy enemy = hitCollider.GetComponent<Enemy>();
-            if (enemy != null && enemy == firstEnemy)
+            Enemy enemy = hitColliders[i].GetComponent<Enemy>();
+            if (enemy != null)
             {
-                if (timeSinceLastFire >= towerStatData.fireRate)
+                float tempDistance = Vector3.Distance(finalEnemyDestination.transform.position, enemy.gameObject.transform.position);
+                if (tempDistance < shortestDistance)
                 {
-                    enemy.Damage(towerStatData.damage);
-                    timeSinceLastFire = 0f;
+                    shortestDistance = tempDistance;
+                    closestEnemyIndex = i;
                 }
-                break;
             }
         }
-        timeSinceLastFire += Time.deltaTime;
-    }
+        return hitColliders[closestEnemyIndex].GetComponent<Enemy>();
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireSphere(transform.position + transformOffset, towerStatData.range);
     }
 }

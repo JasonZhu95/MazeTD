@@ -10,10 +10,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 1.0f;
     [SerializeField] private Button startWaveButton;
     [SerializeField] private Animator startWaveButtonAnim;
+    [SerializeField] private WaveDataSO[] waveData;
 
-    private float timeSinceLastSpawn = 0.0f;
-    private bool startSpawning = false;
-    private int enemiesSpawned = 0;
+    private int waveIndex = 0;
 
     public List<GameObject> listOfEnemies = new List<GameObject>();
 
@@ -26,37 +25,24 @@ public class EnemySpawner : MonoBehaviour
         Enemy.OnEnemyDeath -= HandleEnemyDestroyed;
     }
 
-    private void Update()
+    private IEnumerator SpawnEnemiesWithDelay()
     {
-        if (startSpawning)
+        for (int i = 0; i < waveData[waveIndex].enemiesToSpawn.Length; i++)
         {
-            if (enemiesSpawned < numberOfEnemiesToSpawn)
-            {
-                timeSinceLastSpawn += Time.deltaTime;
+            yield return new WaitForSeconds(1f);
 
-                if (timeSinceLastSpawn >= spawnInterval)
-                {
-                    SpawnEnemy();
-                    timeSinceLastSpawn = 0.0f;
-                }
-            }
+            float randomYOffset = Random.Range(-1.5f, 3.5f);
+            Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
+            GameObject newObject = Instantiate(waveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
+            listOfEnemies.Add(newObject);
         }
     }
 
     public void StartSpawnOnClick()
     {
-        startSpawning = true;
+        StartCoroutine(SpawnEnemiesWithDelay());
         startWaveButton.interactable = false;
         startWaveButtonAnim.SetBool("start", true);
-    }
-
-    private void SpawnEnemy()
-    {
-        float randomYOffset = Random.Range(-1.5f, 3.5f);
-        Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-        listOfEnemies.Add(newEnemy);
-        enemiesSpawned++;
     }
 
     private void HandleEnemyDestroyed(Enemy enemy)
@@ -79,8 +65,6 @@ public class EnemySpawner : MonoBehaviour
         {
             startWaveButton.interactable = true;
             startWaveButtonAnim.SetBool("start", false);
-            startSpawning = false;
-            enemiesSpawned = 0;
         }
     }
 

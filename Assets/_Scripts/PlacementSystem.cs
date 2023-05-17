@@ -97,6 +97,7 @@ public class PlacementSystem : MonoBehaviour
         {
             Debug.Log("INVALID PATH");
         }
+        StopPlacement();
     }
 
     public void StopPlacement()

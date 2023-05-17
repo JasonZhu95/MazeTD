@@ -6,8 +6,8 @@ using System;
 
 public class PlayerStats : MonoBehaviour
 {
-    private int startingHealth = 20;
-    private int startingCoins = 100;
+    [SerializeField] private int startingHealth = 20;
+    [SerializeField] private int startingCoins = 100;
 
     public int CurrentHealth { get; private set; }
     public int CurrentCoins { get; private set; }

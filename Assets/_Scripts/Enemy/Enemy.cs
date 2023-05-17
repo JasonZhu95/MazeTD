@@ -12,11 +12,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator enemyAnim;
     [SerializeField] private Collider2D enemyColl;
 
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
 
     // A* Pathfinding variables
     [SerializeField] private Transform target;
     [SerializeField] private float speed = 200f;
+    [SerializeField] private int coinValue = 20;
     [SerializeField] private float nextWaypointDistance = 3f;
 
     private Path path;
@@ -24,17 +25,19 @@ public class Enemy : MonoBehaviour
     private Seeker seeker;
     private Rigidbody2D rb;
     [SerializeField] private Canvas healthBarCanvas;
+    private PlayerStats playerStats;
 
     public static event Action<Enemy> OnEnemyDeath;
 
     private void Awake()
     {
         target = GameObject.FindGameObjectWithTag("EnemyTarget").transform;
+        currentHealth = enemyData.maxHealth;
+        playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
     }
 
     private void Start()
     {
-        currentHealth = enemyData.maxHealth;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -98,19 +101,21 @@ public class Enemy : MonoBehaviour
             enemyColl.enabled = false;
             enemyAnim.SetBool("dead", true);
         }
-        else
-        {
-            UpdateHealthBar(enemyData.maxHealth, currentHealth);
-        }
+        UpdateHealthBar(enemyData.maxHealth, currentHealth);
     }
 
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {
         healthBarSprite.fillAmount = currentHealth / maxHealth;
+        if (currentHealth == 0)
+        {
+            healthBarSprite.fillAmount = 0;
+        }
     }
 
     public void Die()
     {
+        playerStats.AddCoins(coinValue);
         Destroy(gameObject);
     }
 

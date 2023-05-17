@@ -360,8 +360,10 @@ MonoBehaviour:
   healthBarSprite: {fileID: 645239804679410940}
   enemyAnim: {fileID: 645239806083701257}
   enemyColl: {fileID: 645239806083701256}
+  currentHealth: 100
   target: {fileID: 0}
   speed: 150
+  coinValue: 20
   nextWaypointDistance: 1
   healthBarCanvas: {fileID: 645239805547775372}
 --- !u!61 &645239806083701256

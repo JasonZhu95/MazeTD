@@ -8,4 +8,5 @@ public class TowerStatData : ScriptableObject
     public float damage;
     public float range;
     public float fireRate;
+    public int cost;
 }

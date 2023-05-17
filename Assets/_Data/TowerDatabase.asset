@@ -17,13 +17,11 @@ MonoBehaviour:
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 3945395972314862183, guid: c4620c42aa13af646ba2b6611749c323, type: 3}
-    <Damage>k__BackingField: 1
-    <Range>k__BackingField: 1
-    <FireRate>k__BackingField: 1
   - <Name>k__BackingField: Fire Tower
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 8492455015859060814, guid: 09aa1bde8fd0cdc49b37c6fa63f32511, type: 3}
-    <Damage>k__BackingField: 1
-    <Range>k__BackingField: 1
-    <FireRate>k__BackingField: 1
+  - <Name>k__BackingField: Water Tower
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 8492455015859060814, guid: 09aa1bde8fd0cdc49b37c6fa63f32511, type: 3}
