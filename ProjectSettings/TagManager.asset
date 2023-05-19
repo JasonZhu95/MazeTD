@@ -8,6 +8,7 @@ TagManager:
   - EnemyTarget
   - Enemy
   - PlayerStat
+  - TowerUpgradeCanvas
   layers:
   - Default
   - TransparentFX

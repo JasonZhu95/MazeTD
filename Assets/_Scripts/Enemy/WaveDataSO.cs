@@ -6,4 +6,5 @@ using UnityEngine;
 public class WaveDataSO : ScriptableObject
 {
     public GameObject[] enemiesToSpawn;
+    public int[] numberOfEnemies;
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class TowerPlacer : MonoBehaviour
 {
     [SerializeField] private List<GameObject> placedGameObjects = new List<GameObject>();
+    [SerializeField] private GameObject towerUpgradeCanvas;
     private PlayerStats playerStats;
     private int towerCost;
 
@@ -16,9 +17,12 @@ public class TowerPlacer : MonoBehaviour
 
     public int PlaceObject(GameObject prefab, Vector3 position)
     {
+        FindObjectOfType<SoundManager>().Play("placeBuilding");
         towerCost = prefab.GetComponent<BaseTower>().towerStatData.cost;
         playerStats.DeductCoins(towerCost);
         GameObject newObject = Instantiate(prefab);
+        newObject.GetComponent<BaseTower>().TowerUpgradeCanvas = towerUpgradeCanvas;
+        newObject.GetComponent<BaseTower>().DisableRangeIndicator();
         newObject.transform.position = position;
         newObject.layer = LayerMask.NameToLayer("Towers");
         placedGameObjects.Add(newObject);
@@ -31,7 +35,15 @@ public class TowerPlacer : MonoBehaviour
         {
             return;
         }
+
+        FindObjectOfType<SoundManager>().Play("placeBuildingError");
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
+    }
+
+    public void RefundTowerCost(GameObject prefab)
+    {
+        towerCost = prefab.GetComponent<BaseTower>().towerStatData.cost;
+        playerStats.AddCoins(towerCost);
     }
 }

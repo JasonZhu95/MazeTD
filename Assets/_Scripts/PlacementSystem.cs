@@ -23,7 +23,12 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private GameObject endOfPath;
     private Path path;
 
+    private int id;
+
+    [SerializeField] private GameObject invalidPlacementCanvas;
+
     IBuildingState buildingState;
+    IBuildingState removingState;
 
     private void Start()
     {
@@ -75,7 +80,7 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         gridVisualization.SetActive(true);
-        buildingState = new RemovingState(grid, preview, objectData, towerPlacer);
+        buildingState = new RemovingState(grid, preview, database, objectData, towerPlacer);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -92,12 +97,20 @@ public class PlacementSystem : MonoBehaviour
         buildingState.OnAction(gridPosition);
 
         AstarPath.active.Scan(AstarPath.active.data.graphs[0]);
-        seeker.StartPath(seeker.gameObject.transform.position, endOfPath.transform.position, OnPathComplete);
-        if (path.vectorPath[path.vectorPath.Count - 1] != endOfPath.transform.position)
+        if (!IsPathReachable(seeker.gameObject.transform, endOfPath.transform))
         {
-            Debug.Log("INVALID PATH");
+            removingState = new RemovingState(grid, preview, database, objectData, towerPlacer);
+            removingState.OnAction(gridPosition);
+            invalidPlacementCanvas.SetActive(true);
+            buildingState.RefundCost();
+            StartCoroutine(RescanAfterDelay());
         }
         StopPlacement();
+    }
+    private IEnumerator RescanAfterDelay()
+    {
+        yield return new WaitForSeconds(.1f);
+        AstarPath.active.Scan(AstarPath.active.data.graphs[0]);
     }
 
     public void StopPlacement()
@@ -112,5 +125,15 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
         lastDetectedPosition = Vector3Int.zero;
         buildingState = null;
+    }
+
+    private bool IsPathReachable(Transform start, Transform target)
+    {
+        // Get the appropriate GraphNode for the start and target positions
+        GraphNode startNode = AstarPath.active.GetNearest(start.position).node;
+        GraphNode targetNode = AstarPath.active.GetNearest(target.position).node;
+
+        // Check if a path is possible between the start and target nodes
+        return PathUtilities.IsPathPossible(startNode, targetNode);
     }
 }

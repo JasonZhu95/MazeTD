@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseTower : MonoBehaviour
+public class BaseTower : MonoBehaviour, ISelectable
 {
     public TowerStatData towerStatData;
-    private EnemySpawner enemySpawner;
+    [SerializeField] private GameObject rangeIndicator;
+    public GameObject TowerUpgradeCanvas { get; set; }
 
     protected float timeSinceLastFire = 0f;
     private Vector3 transformOffset = new Vector3(.5f, .5f, 0);
     private GameObject finalEnemyDestination;
+    public bool canUpgrade;
 
     private void Start()
     {
-        enemySpawner = FindObjectOfType<EnemySpawner>();
         finalEnemyDestination = GameObject.FindWithTag("EnemyTarget");
+        rangeIndicator.transform.localScale = new Vector3(towerStatData.range * 2, towerStatData.range * 2, 1f);
     }
 
     protected Enemy FindTarget()
@@ -36,6 +38,27 @@ public class BaseTower : MonoBehaviour
             }
         }
         return hitColliders[closestEnemyIndex].GetComponent<Enemy>();
+    }
 
+    public void OnSelect()
+    {
+        rangeIndicator.SetActive(true);
+        TowerUpgradeCanvas.SetActive(true);
+    }
+
+    public void OnDeselect()
+    {
+        rangeIndicator.SetActive(false);
+        TowerUpgradeCanvas.SetActive(false);
+    }
+
+    public void DisableRangeIndicator()
+    {
+        rangeIndicator.SetActive(false);
+    }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
     }
 }

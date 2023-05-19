@@ -7,12 +7,13 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private int numberOfEnemiesToSpawn;
-    [SerializeField] private float spawnInterval = 1.0f;
     [SerializeField] private Button startWaveButton;
     [SerializeField] private Animator startWaveButtonAnim;
-    [SerializeField] private WaveDataSO[] waveData;
+    [SerializeField] public WaveDataSO[] WaveData;
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private GameObject gameWonCanvas;
 
-    private int waveIndex = 0;
+    public int waveIndex { get; private set; } = 0;
 
     public List<GameObject> listOfEnemies = new List<GameObject>();
 
@@ -27,14 +28,17 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemiesWithDelay()
     {
-        for (int i = 0; i < waveData[waveIndex].enemiesToSpawn.Length; i++)
+        for (int i = 0; i < WaveData[waveIndex].enemiesToSpawn.Length; i++)
         {
-            yield return new WaitForSeconds(1f);
+            for (int j = 0; j < WaveData[waveIndex].numberOfEnemies[i]; j++)
+            {
+                yield return new WaitForSeconds(1f);
 
-            float randomYOffset = Random.Range(-1.5f, 3.5f);
-            Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
-            GameObject newObject = Instantiate(waveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
-            listOfEnemies.Add(newObject);
+                float randomYOffset = Random.Range(-1.5f, 3.5f);
+                Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
+                GameObject newObject = Instantiate(WaveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
+                listOfEnemies.Add(newObject);
+            }
         }
     }
 
@@ -47,7 +51,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void HandleEnemyDestroyed(Enemy enemy)
     {
-        Debug.Log("Enemy Destroyed");
         StartCoroutine(ClearListOfEnemies());
     }
 
@@ -63,9 +66,13 @@ public class EnemySpawner : MonoBehaviour
         }
         if(listOfEnemies.Count == 0)
         {
+            waveIndex++;
+            if (waveIndex == 11 && playerStats.CurrentHealth > 0)
+            {
+                gameWonCanvas.SetActive(true);
+            }
             startWaveButton.interactable = true;
             startWaveButtonAnim.SetBool("start", false);
         }
     }
-
 }

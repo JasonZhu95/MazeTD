@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour
 
     // A* Pathfinding variables
     [SerializeField] private Transform target;
-    [SerializeField] private float speed = 200f;
     [SerializeField] private int coinValue = 20;
     [SerializeField] private float nextWaypointDistance = 3f;
 
@@ -52,9 +51,12 @@ public class Enemy : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        Vector2 force = direction * enemyData.moveSpeed * Time.deltaTime;
 
-        rb.AddForce(force);
+        if (currentHealth > 0)
+        {
+            rb.AddForce(force);
+        }
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance)
@@ -93,13 +95,13 @@ public class Enemy : MonoBehaviour
 
     public void Damage(float damage)
     {
-        Debug.Log("Enemy damaged: " + damage);
         currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
             enemyColl.enabled = false;
             enemyAnim.SetBool("dead", true);
+            rb.velocity = Vector3.zero;
         }
         UpdateHealthBar(enemyData.maxHealth, currentHealth);
     }

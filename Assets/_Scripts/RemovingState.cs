@@ -8,13 +8,15 @@ public class RemovingState : IBuildingState
     private int gameObjectIndex = -1;
     private Grid grid;
     private PreviewSystem previewSystem;
+    private TowerDatabaseSO database;
     private GridData objectData;
     private TowerPlacer towerPlacer;
 
-    public RemovingState(Grid grid, PreviewSystem previewSystem, GridData objectData, TowerPlacer towerPlacer)
+    public RemovingState(Grid grid, PreviewSystem previewSystem, TowerDatabaseSO database, GridData objectData, TowerPlacer towerPlacer)
     {
         this.grid = grid;
         this.previewSystem = previewSystem;
+        this.database = database;
         this.objectData = objectData;
         this.towerPlacer = towerPlacer;
 
@@ -61,5 +63,10 @@ public class RemovingState : IBuildingState
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity);
+    }
+
+    public void RefundCost()
+    {
+        throw new NotImplementedException();
     }
 }

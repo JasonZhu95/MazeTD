@@ -77,4 +77,9 @@ public class PlacementState : IBuildingState
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
     }
+
+    public void RefundCost()
+    {
+        towerPlacer.RefundTowerCost(database.towersData[selectedObjectIndex].Prefab);
+    }
 }
