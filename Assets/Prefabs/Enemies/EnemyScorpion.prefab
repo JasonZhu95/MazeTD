@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 595606733
-  m_SortingLayer: 3
+  m_SortingLayerID: 2141389485
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: da2f296883f5d1d42a1032fe61480121, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,6 +107,7 @@ MonoBehaviour:
   enemyAnim: {fileID: 7994434542166864722}
   enemyColl: {fileID: 7994434542166864723}
   currentHealth: 50
+  slowDuration: 3
   target: {fileID: 0}
   coinValue: 20
   nextWaypointDistance: 1

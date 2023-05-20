@@ -15,7 +15,6 @@ public class ArrowTower : BaseTower
         Fire();
     }
 
-
     private void Fire()
     {
         Enemy enemy = FindTarget();

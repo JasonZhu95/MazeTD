@@ -175,8 +175,8 @@ TextureImporter:
         y: 5231
         width: 561
         height: 691
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -196,8 +196,8 @@ TextureImporter:
         y: 5248
         width: 582
         height: 674
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 6
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,8 +213,8 @@ TextureImporter:
       name: All_without_a_shadow-v2_5
       rect:
         serializedVersion: 2
-        x: 1839
-        y: 5228
+        x: 1829
+        y: 5238
         width: 582
         height: 694
       alignment: 0

@@ -12,9 +12,14 @@ public class BaseTower : MonoBehaviour, ISelectable
     private Vector3 transformOffset = new Vector3(.5f, .5f, 0);
     private GameObject finalEnemyDestination;
     public bool canUpgrade;
+    public int upgradeLevel = 0;
+    [SerializeField] public GameObject[] upgradeTowers;
+    [SerializeField] private TowerStatData[] upgradeTowerData;
+    private PlayerStats playerStats;
 
-    private void Start()
+    private void Awake()
     {
+        playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
         finalEnemyDestination = GameObject.FindWithTag("EnemyTarget");
         rangeIndicator.transform.localScale = new Vector3(towerStatData.range * 2, towerStatData.range * 2, 1f);
     }
@@ -60,5 +65,21 @@ public class BaseTower : MonoBehaviour, ISelectable
     public GameObject GetGameObject()
     {
         return gameObject;
+    }
+
+    public void UpgradeTower(int Level)
+    {
+        playerStats.DeductCoins(towerStatData.costToUpgrade);
+        foreach (GameObject upgradeTower in upgradeTowers)
+        {
+            upgradeTower.SetActive(false);
+        }
+        upgradeTowers[Level].SetActive(true);
+        towerStatData = upgradeTowerData[upgradeLevel];
+        upgradeLevel = Level;
+        if (upgradeLevel == 2)
+        {
+            canUpgrade = false;
+        }
     }
 }

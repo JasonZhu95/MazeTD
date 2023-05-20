@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public async void LoadScene(string sceneName)
+    public void LoadScene(string sceneName)
     {
         target = 0;
         progressBar.fillAmount = 0;

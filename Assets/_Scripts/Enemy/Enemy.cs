@@ -13,6 +13,13 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Collider2D enemyColl;
 
     [SerializeField] private float currentHealth;
+    private float currentSpeed;
+    private SpriteRenderer SR;
+    private Color storeColor;
+
+    private bool isSlowed;
+    private float slowedTimer;
+    public float slowDuration = 2f;
 
     // A* Pathfinding variables
     [SerializeField] private Transform target;
@@ -32,7 +39,10 @@ public class Enemy : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag("EnemyTarget").transform;
         currentHealth = enemyData.maxHealth;
+        currentSpeed = enemyData.moveSpeed;
         playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
+        SR = gameObject.GetComponent<SpriteRenderer>();
+        storeColor = SR.color;
     }
 
     private void Start()
@@ -41,6 +51,8 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InvokeRepeating("UpdatePath", 0f, .5f);
+        isSlowed = false;
+        slowedTimer = 0f;
     }
 
     private void Update()
@@ -51,11 +63,21 @@ public class Enemy : MonoBehaviour
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * enemyData.moveSpeed * Time.deltaTime;
+        Vector2 force = direction * currentSpeed * Time.deltaTime;
 
         if (currentHealth > 0)
         {
             rb.AddForce(force);
+        }
+
+        if (isSlowed)
+        {
+            slowedTimer -= Time.deltaTime;
+
+            if (slowedTimer <= 0f)
+            {
+                RemoveSlow();
+            }
         }
 
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -105,6 +127,35 @@ public class Enemy : MonoBehaviour
         }
         UpdateHealthBar(enemyData.maxHealth, currentHealth);
     }
+
+    public void ApplySlow(float slowMultiplier)
+    {
+        if (isSlowed)
+        {
+            slowedTimer += slowDuration;
+        }
+        else
+        {
+            float newSpeed = enemyData.moveSpeed * slowMultiplier;
+
+            currentSpeed = newSpeed;
+            Color targetColor = new Color(0.2f, 0.5f, 0.8f);
+            SR.color = targetColor;
+
+            isSlowed = true;
+            slowedTimer = slowDuration;
+            Invoke(nameof(RemoveSlow), slowDuration);
+        }
+    }
+
+    private void RemoveSlow()
+    {
+        currentSpeed = enemyData.moveSpeed;
+        SR.color = storeColor;
+        isSlowed = false;
+        slowedTimer = 0f;
+    }
+
 
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {

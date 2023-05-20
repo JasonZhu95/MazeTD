@@ -9,6 +9,7 @@ public class TowerPlacer : MonoBehaviour
     [SerializeField] private GameObject towerUpgradeCanvas;
     private PlayerStats playerStats;
     private int towerCost;
+    [SerializeField] private GameObject towerHolder;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class TowerPlacer : MonoBehaviour
         FindObjectOfType<SoundManager>().Play("placeBuilding");
         towerCost = prefab.GetComponent<BaseTower>().towerStatData.cost;
         playerStats.DeductCoins(towerCost);
-        GameObject newObject = Instantiate(prefab);
+        GameObject newObject = Instantiate(prefab, towerHolder.transform);
         newObject.GetComponent<BaseTower>().TowerUpgradeCanvas = towerUpgradeCanvas;
         newObject.GetComponent<BaseTower>().DisableRangeIndicator();
         newObject.transform.position = position;

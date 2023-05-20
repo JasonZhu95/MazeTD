@@ -57,7 +57,6 @@ public class SelectionManager : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.gameObject.name);
             ISelectable selectable = hit.collider.GetComponent<ISelectable>();
 
             if (selectable != null)

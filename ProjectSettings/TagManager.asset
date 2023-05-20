@@ -55,3 +55,6 @@ TagManager:
   - name: Tower
     uniqueID: 595606733
     locked: 0
+  - name: Enemies
+    uniqueID: 2141389485
+    locked: 0

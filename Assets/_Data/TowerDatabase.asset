@@ -13,15 +13,23 @@ MonoBehaviour:
   m_Name: TowerDatabase
   m_EditorClassIdentifier: 
   towersData:
-  - <Name>k__BackingField: Arrow Tower
+  - <Name>k__BackingField: Rock
     <ID>k__BackingField: 0
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 7149470917058363723, guid: a026d22f6a14a0049b009330307a0d86, type: 3}
+  - <Name>k__BackingField: Arrow Tower
+    <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 3945395972314862183, guid: c4620c42aa13af646ba2b6611749c323, type: 3}
   - <Name>k__BackingField: Fire Tower
-    <ID>k__BackingField: 1
+    <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 8492455015859060814, guid: 09aa1bde8fd0cdc49b37c6fa63f32511, type: 3}
   - <Name>k__BackingField: Ice Tower
-    <ID>k__BackingField: 2
+    <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 6492639702112788804, guid: 3cdc2809961b8d640bb935eadd1402fc, type: 3}
+  - <Name>k__BackingField: Lightning Tower
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 3277756450202242475, guid: 06449dcaebbff044fb19a55f17fcc72b, type: 3}
