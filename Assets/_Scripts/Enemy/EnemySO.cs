@@ -7,4 +7,5 @@ public class EnemySO : ScriptableObject
 {
     public float moveSpeed;
     public float maxHealth;
+    public int coinValue;
 }

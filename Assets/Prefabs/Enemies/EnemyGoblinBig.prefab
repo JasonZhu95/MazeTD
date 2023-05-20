@@ -356,14 +356,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e2fcf5a9d72a1479620fcd06698ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 5116aa799e83bb24bb46ba6af34b984a, type: 2}
+  enemyData: {fileID: 11400000, guid: fed2ae9f67d5c2849ac88601d3213e58, type: 2}
   healthBarSprite: {fileID: 4784098457557429395}
   enemyAnim: {fileID: 4784098458835362406}
   enemyColl: {fileID: 4784098458835362407}
   currentHealth: 50
   slowDuration: 3
   target: {fileID: 0}
-  coinValue: 20
   nextWaypointDistance: 1
   healthBarCanvas: {fileID: 4784098457225903587}
 --- !u!61 &4784098458835362407

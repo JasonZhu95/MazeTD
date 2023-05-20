@@ -8,6 +8,7 @@ public class TowerUI : MonoBehaviour
 {
     [SerializeField] private SelectionManager selectionManager;
     [SerializeField] private Image towerImage;
+    [SerializeField] private TextMeshProUGUI towerName;
     [SerializeField] private TextMeshProUGUI upgradeText;
     [SerializeField] private Button upgradeButton;
     private GameObject towerToUpgrade;
@@ -24,9 +25,13 @@ public class TowerUI : MonoBehaviour
         towerToUpgrade = selectionManager.selectedObject.GetGameObject();
         tower = towerToUpgrade.GetComponent<BaseTower>();
         SpriteRenderer sr = tower.upgradeTowers[tower.upgradeLevel].GetComponent<SpriteRenderer>();
+        float spriteWidth = sr.sprite.bounds.size.x;
+        float spriteHeight = sr.sprite.bounds.size.y;
         Sprite sprite = sr.sprite;
         towerImage.sprite = sprite;
+        towerImage.rectTransform.sizeDelta = new Vector2(spriteWidth * 100, spriteHeight * 100);
         upgradeText.text = tower.towerStatData.costToUpgrade.ToString();
+        towerName.text = tower.towerStatData.towerName;
         if (tower.canUpgrade)
         {
             upgradeText.gameObject.SetActive(true);

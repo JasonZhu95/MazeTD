@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b45a197b4d1f8b49bc89c64144ddd5e, type: 3}
   m_Name: ArrowTower
   m_EditorClassIdentifier: 
+  towerName: Arrow Tower
   damage: 10
   range: 2
   fireRate: 1

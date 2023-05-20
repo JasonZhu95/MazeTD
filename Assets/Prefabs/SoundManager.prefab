@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: MusicTheme
-    clip: {fileID: 8300000, guid: 023cce0e554510549877bdb8dd5d6c75, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 19d4a2ff5c056b744b8a37f716963e11, type: 3}
+    volume: 0.07
     pitch: 1
     loop: 1
     source: {fileID: 0}

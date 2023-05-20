@@ -18,7 +18,6 @@ public class TowerHolderChangeZ : MonoBehaviour
         if (transform.childCount != childCount)
         {
             // Perform actions when a child object is created or destroyed
-            Debug.Log("Child object created or destroyed!");
             for (int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);

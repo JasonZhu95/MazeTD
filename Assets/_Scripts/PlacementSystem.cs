@@ -10,8 +10,6 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private InputManager inputManager;
     [SerializeField] private TowerDatabaseSO database;
     [SerializeField] private GameObject gridVisualization;
-    [SerializeField] private AudioSource validAudioSource;
-    [SerializeField] private AudioSource invalidAudioSource;
     [SerializeField] private PreviewSystem preview;
     [SerializeField] private TowerPlacer towerPlacer;
 

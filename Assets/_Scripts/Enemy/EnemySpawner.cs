@@ -67,12 +67,15 @@ public class EnemySpawner : MonoBehaviour
         if(listOfEnemies.Count == 0)
         {
             waveIndex++;
-            if (waveIndex == 11 && playerStats.CurrentHealth > 0)
+            if (waveIndex == 31 && playerStats.CurrentHealth > 0)
             {
                 gameWonCanvas.SetActive(true);
             }
-            startWaveButton.interactable = true;
-            startWaveButtonAnim.SetBool("start", false);
+            else
+            {
+                startWaveButton.interactable = true;
+                startWaveButtonAnim.SetBool("start", false);
+            }
         }
     }
 }

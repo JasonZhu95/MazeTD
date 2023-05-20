@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
 
     // A* Pathfinding variables
     [SerializeField] private Transform target;
-    [SerializeField] private int coinValue = 20;
     [SerializeField] private float nextWaypointDistance = 3f;
 
     private Path path;
@@ -168,7 +167,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        playerStats.AddCoins(coinValue);
+        playerStats.AddCoins(enemyData.coinValue);
         Destroy(gameObject);
     }
 

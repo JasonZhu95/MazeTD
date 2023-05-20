@@ -17,6 +17,8 @@ public class BaseTower : MonoBehaviour, ISelectable
     [SerializeField] private TowerStatData[] upgradeTowerData;
     private PlayerStats playerStats;
 
+    public bool isActive { get; set; } = false;
+
     private void Awake()
     {
         playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
@@ -26,23 +28,30 @@ public class BaseTower : MonoBehaviour, ISelectable
 
     protected Enemy FindTarget()
     {
-        float shortestDistance = Mathf.Infinity;
-        int closestEnemyIndex = 0;
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position + transformOffset, towerStatData.range);
-        for (int i = 0; i < hitColliders.Length; i++)
+        if (isActive)
         {
-            Enemy enemy = hitColliders[i].GetComponent<Enemy>();
-            if (enemy != null)
+            float shortestDistance = Mathf.Infinity;
+            int closestEnemyIndex = 0;
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position + transformOffset, towerStatData.range);
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                float tempDistance = Vector3.Distance(finalEnemyDestination.transform.position, enemy.gameObject.transform.position);
-                if (tempDistance < shortestDistance)
+                Enemy enemy = hitColliders[i].GetComponent<Enemy>();
+                if (enemy != null)
                 {
-                    shortestDistance = tempDistance;
-                    closestEnemyIndex = i;
+                    float tempDistance = Vector3.Distance(finalEnemyDestination.transform.position, enemy.gameObject.transform.position);
+                    if (tempDistance < shortestDistance)
+                    {
+                        shortestDistance = tempDistance;
+                        closestEnemyIndex = i;
+                    }
                 }
             }
+            return hitColliders[closestEnemyIndex].GetComponent<Enemy>();
         }
-        return hitColliders[closestEnemyIndex].GetComponent<Enemy>();
+        else
+        {
+            return null;
+        }
     }
 
     public void OnSelect()
@@ -75,7 +84,8 @@ public class BaseTower : MonoBehaviour, ISelectable
             upgradeTower.SetActive(false);
         }
         upgradeTowers[Level].SetActive(true);
-        towerStatData = upgradeTowerData[upgradeLevel];
+        towerStatData = upgradeTowerData[Level];
+        rangeIndicator.transform.localScale = new Vector3(towerStatData.range * 2, towerStatData.range * 2, 1f);
         upgradeLevel = Level;
         if (upgradeLevel == 2)
         {

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EnemyScorpion
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  maxHealth: 50
+  maxHealth: 30
+  coinValue: 0

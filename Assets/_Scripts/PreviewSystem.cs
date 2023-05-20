@@ -25,6 +25,7 @@ public class PreviewSystem : MonoBehaviour
     public void StartShowingPlacementPreview(GameObject prefab, Vector2Int size)
     {
         previewObject = Instantiate(prefab);
+        
         PreparePreview(previewObject);
         PrepareCursor(size);
         cellIndicator.SetActive(true);
@@ -33,6 +34,7 @@ public class PreviewSystem : MonoBehaviour
     private void PreparePreview(GameObject previewObject)
     {
         SpriteRenderer renderer = previewObject.GetComponentInChildren<SpriteRenderer>();
+        previewObject.GetComponent<BoxCollider2D>().enabled = false;
         Material materials = renderer.material;
         materials = previewMaterialInstance;
         renderer.material = materials;

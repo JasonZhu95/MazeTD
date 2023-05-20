@@ -24,6 +24,7 @@ public class TowerPlacer : MonoBehaviour
         GameObject newObject = Instantiate(prefab, towerHolder.transform);
         newObject.GetComponent<BaseTower>().TowerUpgradeCanvas = towerUpgradeCanvas;
         newObject.GetComponent<BaseTower>().DisableRangeIndicator();
+        newObject.GetComponent<BaseTower>().isActive = true;
         newObject.transform.position = position;
         newObject.layer = LayerMask.NameToLayer("Towers");
         placedGameObjects.Add(newObject);
