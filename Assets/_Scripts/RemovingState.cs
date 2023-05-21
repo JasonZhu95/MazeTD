@@ -11,6 +11,7 @@ public class RemovingState : IBuildingState
     private TowerDatabaseSO database;
     private GridData objectData;
     private TowerPlacer towerPlacer;
+    private PlayerStats playerStats;
 
     public RemovingState(Grid grid, PreviewSystem previewSystem, TowerDatabaseSO database, GridData objectData, TowerPlacer towerPlacer)
     {
@@ -38,7 +39,7 @@ public class RemovingState : IBuildingState
 
         if (selectedData == null)
         {
-            // Add Sound
+            
         }
         else
         {
@@ -46,6 +47,19 @@ public class RemovingState : IBuildingState
             if (gameObjectIndex == -1)
             {
                 return;
+            }
+            Vector2 positonToSearch = new Vector2(gridPosition.x, gridPosition.y + 2f);
+            Debug.Log(positonToSearch);
+            Debug.Log(gridPosition);
+            Collider2D[] hitColliders = Physics2D.OverlapBoxAll(positonToSearch, new Vector2(0.5f, 0.5f), 0f);
+            foreach (Collider2D collider in hitColliders)
+            {
+                BaseTower tower = collider.GetComponent<BaseTower>();
+                if (tower != null)
+                {
+                    playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
+                    playerStats.AddCoins((int)(tower.currentValue * .75f));
+                }
             }
             selectedData.RemoveObjectAt(gridPosition);
             towerPlacer.RemoveObjectAt(gameObjectIndex);

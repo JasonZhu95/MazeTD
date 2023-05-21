@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyGoblinBig
   m_EditorClassIdentifier: 
   moveSpeed: 80
-  maxHealth: 250
+  maxHealth: 400
   coinValue: 40

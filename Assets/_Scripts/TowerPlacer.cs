@@ -37,7 +37,6 @@ public class TowerPlacer : MonoBehaviour
         {
             return;
         }
-
         FindObjectOfType<SoundManager>().Play("placeBuildingError");
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;

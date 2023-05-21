@@ -55,7 +55,7 @@ public class IceTower : BaseTower
             Enemy enemy = hitEnemies[i].GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.ApplySlow(.2f);
+                enemy.ApplySlow(.7f);
             }
         }
     }

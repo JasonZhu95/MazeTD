@@ -211,8 +211,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 595606733
-  m_SortingOrder: 0
+  m_SortingLayerID: 2141389485
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &645239805547775371
 MonoBehaviour:
@@ -363,7 +363,6 @@ MonoBehaviour:
   currentHealth: 100
   slowDuration: 3
   target: {fileID: 0}
-  coinValue: 20
   nextWaypointDistance: 1
   healthBarCanvas: {fileID: 645239805547775372}
 --- !u!61 &645239806083701256

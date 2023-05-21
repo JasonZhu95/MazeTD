@@ -34,9 +34,10 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int j = 0; j < WaveData[waveIndex].numberOfEnemies[i]; j++)
             {
-                yield return new WaitForSeconds(.8f);
-                float randomYOffset = Random.Range(-1.2f, 3.2f);
-                Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
+                yield return new WaitForSeconds(.1f);
+                float randomYOffset = Random.Range(-2.2f, 2.2f);
+                float randomXOffset = Random.Range(-.7f, .7f);
+                Vector3 spawnPosition = transform.position + new Vector3(randomXOffset, randomYOffset, 0);
                 GameObject newObject = Instantiate(WaveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
                 listOfEnemies.Add(newObject);
             }

@@ -16,6 +16,7 @@ public class BaseTower : MonoBehaviour, ISelectable
     [SerializeField] public GameObject[] upgradeTowers;
     [SerializeField] private TowerStatData[] upgradeTowerData;
     private PlayerStats playerStats;
+    public int currentValue = 0;
 
     public bool isActive { get; set; } = false;
 
@@ -24,6 +25,7 @@ public class BaseTower : MonoBehaviour, ISelectable
         playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
         finalEnemyDestination = GameObject.FindWithTag("EnemyTarget");
         rangeIndicator.transform.localScale = new Vector3(towerStatData.range * 2, towerStatData.range * 2, 1f);
+        currentValue = towerStatData.cost;
     }
 
     protected Enemy FindTarget()
@@ -78,6 +80,7 @@ public class BaseTower : MonoBehaviour, ISelectable
 
     public void UpgradeTower(int Level)
     {
+        currentValue += towerStatData.costToUpgrade;
         playerStats.DeductCoins(towerStatData.costToUpgrade);
         foreach (GameObject upgradeTower in upgradeTowers)
         {
