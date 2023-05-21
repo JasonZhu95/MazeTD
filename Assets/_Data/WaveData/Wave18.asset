@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wave18
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - {fileID: 3600009473689815477, guid: 461e5b0c08373004191840587ce0c6d0, type: 3}
+  - {fileID: 2649837265339827251, guid: 15d478d394ad6e9499b53714b0d162d4, type: 3}
   numberOfEnemies: 14000000

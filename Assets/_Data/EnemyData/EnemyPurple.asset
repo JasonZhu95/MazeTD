@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyPurple
   m_EditorClassIdentifier: 
   moveSpeed: 125
-  maxHealth: 60
+  maxHealth: 100
   coinValue: 25

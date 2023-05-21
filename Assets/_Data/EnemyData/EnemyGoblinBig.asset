@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5909a39cbf6bc65499fec3aa35fd5857, type: 3}
   m_Name: EnemyGoblinBig
   m_EditorClassIdentifier: 
-  moveSpeed: 100
-  maxHealth: 200
+  moveSpeed: 80
+  maxHealth: 250
+  coinValue: 40
