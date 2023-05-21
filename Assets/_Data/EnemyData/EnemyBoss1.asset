@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5909a39cbf6bc65499fec3aa35fd5857, type: 3}
   m_Name: EnemyBoss1
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  maxHealth: 0
-  coinValue: 0
+  moveSpeed: 75
+  maxHealth: 1000
+  coinValue: 100

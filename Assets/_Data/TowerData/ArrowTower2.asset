@@ -17,4 +17,4 @@ MonoBehaviour:
   range: 2.5
   fireRate: 0.8
   cost: 100
-  costToUpgrade: 300
+  costToUpgrade: 400

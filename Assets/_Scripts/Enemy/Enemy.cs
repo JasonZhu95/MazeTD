@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     private PlayerStats playerStats;
 
     public static event Action<Enemy> OnEnemyDeath;
+    private bool dead = false;
 
     private void Awake()
     {
@@ -118,10 +119,12 @@ public class Enemy : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !dead)
         {
+            dead = true;
             enemyColl.enabled = false;
             enemyAnim.SetBool("dead", true);
+            playerStats.AddCoins(enemyData.coinValue);
             rb.velocity = Vector3.zero;
         }
         UpdateHealthBar(enemyData.maxHealth, currentHealth);
@@ -167,7 +170,6 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        playerStats.AddCoins(enemyData.coinValue);
         Destroy(gameObject);
     }
 

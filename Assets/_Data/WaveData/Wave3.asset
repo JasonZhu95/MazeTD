@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wave3
   m_EditorClassIdentifier: 
   enemiesToSpawn:
-  - {fileID: 2466847416230941148, guid: dff2ce2332f9b8943ae8fad9d4f9d3f8, type: 3}
-  - {fileID: 645239806083701364, guid: eeafce632d3896b47b1cfad5b629d94a, type: 3}
+  - {fileID: 7994434542166864687, guid: b01731c31405f9f45a59d8ab990acb3c, type: 3}
+  - {fileID: 4145236219308893157, guid: 5a7dc31121f4aa94d8c7dafd19163dad, type: 3}
   numberOfEnemies: 0500000002000000

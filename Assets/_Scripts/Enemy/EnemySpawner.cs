@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private int numberOfEnemiesToSpawn;
     [SerializeField] private Button startWaveButton;
     [SerializeField] private Animator startWaveButtonAnim;
     [SerializeField] public WaveDataSO[] WaveData;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private GameObject gameWonCanvas;
+    [SerializeField] private GameObject addCoinCanvas;
+    private TextMeshProUGUI addCoinText;
 
     public int waveIndex { get; private set; } = 0;
 
@@ -20,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         Enemy.OnEnemyDeath += HandleEnemyDestroyed;
+        addCoinText = addCoinCanvas.GetComponent<TextMeshProUGUI>();
     }
     private void OnDestroy()
     {
@@ -32,9 +34,8 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int j = 0; j < WaveData[waveIndex].numberOfEnemies[i]; j++)
             {
-                yield return new WaitForSeconds(1f);
-
-                float randomYOffset = Random.Range(-1.5f, 3.5f);
+                yield return new WaitForSeconds(.8f);
+                float randomYOffset = Random.Range(-1.2f, 3.2f);
                 Vector3 spawnPosition = transform.position + new Vector3(0, randomYOffset, 0);
                 GameObject newObject = Instantiate(WaveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
                 listOfEnemies.Add(newObject);
@@ -66,6 +67,11 @@ public class EnemySpawner : MonoBehaviour
         }
         if(listOfEnemies.Count == 0)
         {
+            float coinsToAdd = playerStats.CurrentCoins * .1f;
+            coinsToAdd += 100;
+            playerStats.AddCoins((int)Mathf.Ceil(coinsToAdd));
+            addCoinText.text = Mathf.Ceil(coinsToAdd).ToString();
+            addCoinCanvas.SetActive(true);
             waveIndex++;
             if (waveIndex == 31 && playerStats.CurrentHealth > 0)
             {
