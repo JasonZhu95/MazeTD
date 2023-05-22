@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject addCoinCanvas;
     private TextMeshProUGUI addCoinText;
     [SerializeField] TextMeshProUGUI waveText;
+    [SerializeField] private Transform enemyHolder;
 
     public int waveIndex { get; private set; } = 0;
     private bool waveDoneSpawning;
@@ -48,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
                 float randomYOffset = Random.Range(-2f, 2f);
                 float randomXOffset = Random.Range(-.7f, .7f);
                 Vector3 spawnPosition = transform.position + new Vector3(randomXOffset, randomYOffset, 0);
-                GameObject newObject = Instantiate(WaveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity);
+                GameObject newObject = Instantiate(WaveData[waveIndex].enemiesToSpawn[i], spawnPosition, Quaternion.identity, enemyHolder);
                 listOfEnemies.Add(newObject);
             }
         }

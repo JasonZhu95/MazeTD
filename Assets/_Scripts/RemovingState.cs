@@ -14,6 +14,8 @@ public class RemovingState : IBuildingState
     private PlayerStats playerStats;
     private bool sellCheck;
 
+    private int indexToSell;
+
     public RemovingState(Grid grid, PreviewSystem previewSystem, TowerDatabaseSO database, GridData objectData, TowerPlacer towerPlacer, bool sellCheck)
     {
         this.grid = grid;
@@ -51,19 +53,30 @@ public class RemovingState : IBuildingState
                 return;
             }
             Vector2 positonToSearch = new Vector2(gridPosition.x, gridPosition.y + 2f);
-            Collider2D[] hitColliders = Physics2D.OverlapBoxAll(positonToSearch, new Vector2(0.5f, 0.5f), 0f);
-            foreach (Collider2D collider in hitColliders)
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(positonToSearch, .15f);
+
+            BaseTower closestTower = null;
+            float closestDistance = Mathf.Infinity;
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                BaseTower tower = collider.GetComponent<BaseTower>();
+                BaseTower tower = hitColliders[i].GetComponent<BaseTower>();
                 if (tower != null)
                 {
-                    playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
-                    if (!sellCheck)
+                    Collider2D collider = hitColliders[i];
+                    float distance = Vector2.Distance(tower.transform.position, positonToSearch);
+                    if (distance < closestDistance)
                     {
-                        playerStats.AddCoins((int)(tower.currentValue * .8f));
+                        closestDistance = distance;
+                        closestTower = tower;
                     }
                 }
             }
+            playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
+            if (!sellCheck)
+            {
+                playerStats.AddCoins((int)(closestTower.currentValue * .8f));
+            }
+
             selectedData.RemoveObjectAt(gridPosition);
             towerPlacer.RemoveObjectAt(gameObjectIndex, sellCheck);
         }
