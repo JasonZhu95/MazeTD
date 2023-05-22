@@ -12,14 +12,16 @@ public class RemovingState : IBuildingState
     private GridData objectData;
     private TowerPlacer towerPlacer;
     private PlayerStats playerStats;
+    private bool sellCheck;
 
-    public RemovingState(Grid grid, PreviewSystem previewSystem, TowerDatabaseSO database, GridData objectData, TowerPlacer towerPlacer)
+    public RemovingState(Grid grid, PreviewSystem previewSystem, TowerDatabaseSO database, GridData objectData, TowerPlacer towerPlacer, bool sellCheck)
     {
         this.grid = grid;
         this.previewSystem = previewSystem;
         this.database = database;
         this.objectData = objectData;
         this.towerPlacer = towerPlacer;
+        this.sellCheck = sellCheck;
 
         previewSystem.StartShowingRemovePreview();
     }
@@ -49,8 +51,6 @@ public class RemovingState : IBuildingState
                 return;
             }
             Vector2 positonToSearch = new Vector2(gridPosition.x, gridPosition.y + 2f);
-            Debug.Log(positonToSearch);
-            Debug.Log(gridPosition);
             Collider2D[] hitColliders = Physics2D.OverlapBoxAll(positonToSearch, new Vector2(0.5f, 0.5f), 0f);
             foreach (Collider2D collider in hitColliders)
             {
@@ -58,11 +58,11 @@ public class RemovingState : IBuildingState
                 if (tower != null)
                 {
                     playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
-                    playerStats.AddCoins((int)(tower.currentValue * .75f));
+                    playerStats.AddCoins((int)(tower.currentValue * .8f));
                 }
             }
             selectedData.RemoveObjectAt(gridPosition);
-            towerPlacer.RemoveObjectAt(gameObjectIndex);
+            towerPlacer.RemoveObjectAt(gameObjectIndex, sellCheck);
         }
         Vector3 cellPosition = grid.CellToWorld(gridPosition);
         previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));

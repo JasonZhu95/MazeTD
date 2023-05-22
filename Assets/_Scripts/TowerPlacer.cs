@@ -31,13 +31,20 @@ public class TowerPlacer : MonoBehaviour
         return placedGameObjects.Count - 1;
     }
 
-    internal void RemoveObjectAt(int gameObjectIndex)
+    internal void RemoveObjectAt(int gameObjectIndex, bool sell)
     {
         if (placedGameObjects.Count <= gameObjectIndex || placedGameObjects[gameObjectIndex] == null)
         {
             return;
         }
-        FindObjectOfType<SoundManager>().Play("placeBuildingError");
+        if (sell)
+        {
+            FindObjectOfType<SoundManager>().Play("sellBuilding");
+        }
+        else
+        {
+            FindObjectOfType<SoundManager>().Play("placeBuildingError");
+        }
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
     }

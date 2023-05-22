@@ -11,8 +11,16 @@ public class DestroyEnemyTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            if (collision.gameObject.GetComponent<Enemy>().enemyData.isBoss)
+            {
+                playerStats.TakeDamage(10);
+            }
+            else
+            {
+                playerStats.TakeDamage(1);
+            }
+
             Destroy(collision.gameObject);
-            playerStats.TakeDamage(1);
         }
     }
 

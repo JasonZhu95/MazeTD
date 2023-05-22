@@ -89,12 +89,18 @@ public class Enemy : MonoBehaviour
         if (force.x >= 0.01f)
         {
             transform.localScale = new Vector3(1f, 1f, 1f);
-            healthBarCanvas.GetComponent<RectTransform>().localScale = new Vector3(.001f, .001f, 1f);
         }
         else if (force.x <= -0.01f)
         {
             transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        if (transform.localScale.x < 0f)
+        {
             healthBarCanvas.GetComponent<RectTransform>().localScale = new Vector3(-.001f, .001f, 1f);
+        }
+        else
+        {
+            healthBarCanvas.GetComponent<RectTransform>().localScale = new Vector3(.001f, .001f, 1f);
         }
     }
 

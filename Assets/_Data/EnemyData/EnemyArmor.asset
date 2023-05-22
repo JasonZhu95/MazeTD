@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyArmor
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  maxHealth: 500
+  maxHealth: 700
   coinValue: 60

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyNerdOgre
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  maxHealth: 700
+  maxHealth: 1000
   coinValue: 70

@@ -5339,6 +5339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560166d0f88eee34a93f33c958fca75b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicOn: {fileID: 0}
+  musicOff: {fileID: 0}
+  soundOn: {fileID: 0}
+  soundOff: {fileID: 0}
 --- !u!114 &965974096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9839,6 +9843,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f650132ac50126a4bb76ba11eb1b214f, type: 2}
   - {fileID: 11400000, guid: 1aae0a6b2f7a30643997a2c53443769b, type: 2}
   - {fileID: 11400000, guid: 43a68a2f0f8656c40acf996dbabefb6f, type: 2}
+  - {fileID: 11400000, guid: ca916868c74e27a4a9033bdfefe754fe, type: 2}
   playerStats: {fileID: 622323960}
   gameWonCanvas: {fileID: 1966588948}
   addCoinCanvas: {fileID: 655483551}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyOgreKnight
   m_EditorClassIdentifier: 
   moveSpeed: 100
-  maxHealth: 1000
+  maxHealth: 1200
   coinValue: 80

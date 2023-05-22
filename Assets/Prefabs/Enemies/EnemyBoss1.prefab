@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 5018555562933668503}
   - component: {fileID: 5018555562933668501}
   - component: {fileID: 5018555562933668500}
-  - component: {fileID: 6914710977095518275}
+  - component: {fileID: 3292772686230516790}
   m_Layer: 10
   m_Name: EnemyBoss1
   m_TagString: Enemy
@@ -359,7 +359,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: fc3df05e65914cf4288776ceb7904af3, type: 2}
   healthBarSprite: {fileID: 5018555562064643170}
   enemyAnim: {fileID: 5018555562933668503}
-  enemyColl: {fileID: 6914710977095518275}
+  enemyColl: {fileID: 3292772686230516790}
   currentHealth: 50
   slowDuration: 3
   target: {fileID: 0}
@@ -435,7 +435,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &6914710977095518275
+--- !u!61 &3292772686230516790
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -448,7 +448,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.49213958, y: -0.2079488}
+  m_Offset: {x: 0.028153658, y: -0.06568113}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -459,5 +459,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64385176, y: 0.56676245}
+  m_Size: {x: 0.5462966, y: 0.5586328}
   m_EdgeRadius: 0

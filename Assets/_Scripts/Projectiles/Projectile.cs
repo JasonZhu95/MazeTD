@@ -20,7 +20,11 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (initialized)
+        if (enemyTarget == null)
+        {
+            Destroy(gameObject);
+        }
+        if (initialized && enemyTarget != null)
         {
             transform.position = Vector3.Lerp(transform.position, enemyTarget.transform.position, speed * Time.deltaTime);
             float distance = Vector3.Distance(transform.position, enemyTarget.transform.position);

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnemyBoss3
   m_EditorClassIdentifier: 
   moveSpeed: 75
-  maxHealth: 7000
+  maxHealth: 15000
   coinValue: 300
+  isBoss: 1

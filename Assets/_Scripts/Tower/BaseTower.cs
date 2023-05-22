@@ -80,6 +80,7 @@ public class BaseTower : MonoBehaviour, ISelectable
 
     public void UpgradeTower(int Level)
     {
+        FindObjectOfType<SoundManager>().Play("upgradeBuilding");
         currentValue += towerStatData.costToUpgrade;
         playerStats.DeductCoins(towerStatData.costToUpgrade);
         foreach (GameObject upgradeTower in upgradeTowers)

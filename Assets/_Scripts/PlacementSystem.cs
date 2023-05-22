@@ -78,7 +78,7 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         gridVisualization.SetActive(true);
-        buildingState = new RemovingState(grid, preview, database, objectData, towerPlacer);
+        buildingState = new RemovingState(grid, preview, database, objectData, towerPlacer, false);
         inputManager.OnClicked += PlaceStructure;
         inputManager.OnExit += StopPlacement;
     }
@@ -97,7 +97,7 @@ public class PlacementSystem : MonoBehaviour
         AstarPath.active.Scan(AstarPath.active.data.graphs[0]);
         if (!IsPathReachable(seeker.gameObject.transform, endOfPath.transform))
         {
-            removingState = new RemovingState(grid, preview, database, objectData, towerPlacer);
+            removingState = new RemovingState(grid, preview, database, objectData, towerPlacer, true);
             removingState.OnAction(gridPosition);
             invalidPlacementCanvas.SetActive(true);
             buildingState.RefundCost();

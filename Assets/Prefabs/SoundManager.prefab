@@ -69,3 +69,15 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: upgradeBuilding
+    clip: {fileID: 8300000, guid: 3db2d9352fd948445ab6f711f857bfd2, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: sellBuilding
+    clip: {fileID: 8300000, guid: fc747ef5537864a4cb495303191636c5, type: 3}
+    volume: 0.1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

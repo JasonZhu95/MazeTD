@@ -34,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
         {
             for (int j = 0; j < WaveData[waveIndex].numberOfEnemies[i]; j++)
             {
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(.2f);
                 float randomYOffset = Random.Range(-2.2f, 2.2f);
                 float randomXOffset = Random.Range(-.7f, .7f);
                 Vector3 spawnPosition = transform.position + new Vector3(randomXOffset, randomYOffset, 0);
