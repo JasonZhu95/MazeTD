@@ -27,11 +27,19 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoadedWebGL;
+    }
 
     public void LoadScene(string sceneName)
     {
         anim.SetBool("start", true);
+#if UNITY_WEBGL
+        StartCoroutine(LoadSceneAfterWebGL(sceneName));
+#else
         StartCoroutine(LoadSceneAfterAnim(sceneName));
+#endif
     }
 
     public IEnumerator LoadSceneAfterAnim(string sceneName)
@@ -54,6 +62,17 @@ public class LevelManager : MonoBehaviour
         scene.allowSceneActivation = true;
         loaderCanvas.SetActive(false);
         scene.completed += OnSceneLoaded;
+    }
+
+    public IEnumerator LoadSceneAfterWebGL(string sceneName)
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    private void OnSceneLoadedWebGL(Scene scene, LoadSceneMode mode)
+    {
+        anim.SetBool("start", false);
     }
 
     private void OnSceneLoaded(AsyncOperation asyncOp)
