@@ -438,6 +438,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 358580105}
+  - component: {fileID: 358580106}
   m_Layer: 5
   m_Name: UIHolder
   m_TagString: Untagged
@@ -474,6 +475,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &358580106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358580104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ca2280fd1a5eb4e9842c6ee3a21fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicOn: {fileID: 1524677896}
+  musicOff: {fileID: 2002427615}
+  soundOn: {fileID: 505242841}
+  soundOff: {fileID: 199926029}
 --- !u!1 &376431319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1909,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1145387805079976770, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
+      propertyPath: sounds.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145387805079976770, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
+      propertyPath: sounds.Array.data[6].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 84554d6656f25f04e909ab0e099e960b, type: 3}
+    - target: {fileID: 1145387805079976770, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
+      propertyPath: sounds.Array.data[6].name
+      value: GameWin
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145387805079976770, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
+      propertyPath: sounds.Array.data[6].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1145387805079976770, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
+      propertyPath: sounds.Array.data[6].volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1145387805079976771, guid: 3e034f9f1eb80a94dbcbb9c2360021f6, type: 3}
       propertyPath: m_Name
       value: SoundManager

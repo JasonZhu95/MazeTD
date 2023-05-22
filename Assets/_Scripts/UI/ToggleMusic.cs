@@ -35,6 +35,6 @@ public class ToggleMusic : MonoBehaviour
     {
         musicOffButton.SetActive(false);
         musicOnButton.SetActive(true);
-        musicThemeSource.volume = .1f;
+        musicThemeSource.volume = .05f;
     }
 }

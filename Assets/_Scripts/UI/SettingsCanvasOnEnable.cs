@@ -28,12 +28,12 @@ public class SettingsCanvasOnEnable : MonoBehaviour
                     musicOff.SetActive(true);
                 }
             }
-            else if (audioSource.clip.name == "placeBuilding")
+            if (audioSource.clip.name == "placeBuilding")
             {
                 if (audioSource.volume == 0f)
                 {
                     soundOn.SetActive(false);
-                    soundOn.SetActive(true);
+                    soundOff.SetActive(true);
                 }
             }
         }

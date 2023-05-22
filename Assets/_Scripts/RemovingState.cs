@@ -58,7 +58,10 @@ public class RemovingState : IBuildingState
                 if (tower != null)
                 {
                     playerStats = GameObject.FindWithTag("PlayerStat").GetComponent<PlayerStats>();
-                    playerStats.AddCoins((int)(tower.currentValue * .8f));
+                    if (!sellCheck)
+                    {
+                        playerStats.AddCoins((int)(tower.currentValue * .8f));
+                    }
                 }
             }
             selectedData.RemoveObjectAt(gridPosition);

@@ -11,10 +11,12 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private GameObject loaderCanvas;
     [SerializeField] private Image progressBar;
+    private Animator anim;
     private float target;
 
     private void Awake()
     {
+        anim = gameObject.GetComponent<Animator>();
         if (Instance == null)
         {
             Instance = this;
@@ -28,6 +30,13 @@ public class LevelManager : MonoBehaviour
 
     public void LoadScene(string sceneName)
     {
+        anim.SetBool("start", true);
+        StartCoroutine(LoadSceneAfterAnim(sceneName));
+    }
+
+    public IEnumerator LoadSceneAfterAnim(string sceneName)
+    {
+        yield return new WaitForSeconds(.5f);
         target = 0;
         progressBar.fillAmount = 0;
 
@@ -44,6 +53,12 @@ public class LevelManager : MonoBehaviour
 
         scene.allowSceneActivation = true;
         loaderCanvas.SetActive(false);
+        scene.completed += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(AsyncOperation asyncOp)
+    {
+        anim.SetBool("start", false);
     }
 
     private void Update()

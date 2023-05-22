@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: EnemyOgre
   m_EditorClassIdentifier: 
   moveSpeed: 125
-  maxHealth: 500
+  maxHealth: 550
   coinValue: 50
+  isBoss: 0

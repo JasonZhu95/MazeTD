@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
 
     public static event Action<Enemy> OnEnemyDeath;
     private bool dead = false;
+    private Vector3 targetScale;
+    private float lerpSpeed = 5f;
 
     private void Awake()
     {
@@ -85,15 +87,17 @@ public class Enemy : MonoBehaviour
         {
             currentWaypoint++;
         }
+        if (rb.velocity.x >= 0.01f)
+        {
+            targetScale = new Vector3(1f, 1f, 1f);
+        }
+        else if (rb.velocity.x <= -0.01f)
+        {
+            targetScale = new Vector3(-1f, 1f, 1f);
+        }
+        Vector3 newScale = Vector3.Lerp(transform.localScale, targetScale, lerpSpeed * Time.deltaTime);
+        transform.localScale = newScale;
 
-        if (force.x >= 0.01f)
-        {
-            transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        else if (force.x <= -0.01f)
-        {
-            transform.localScale = new Vector3(-1f, 1f, 1f);
-        }
         if (transform.localScale.x < 0f)
         {
             healthBarCanvas.GetComponent<RectTransform>().localScale = new Vector3(-.001f, .001f, 1f);

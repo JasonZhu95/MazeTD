@@ -38,7 +38,7 @@ public class SelectionManager : MonoBehaviour
             Transform childTransform = canvasObject.transform.GetChild(i);
             RectTransform childRectTransform = childTransform.GetComponent<RectTransform>();
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(childRectTransform, Input.mousePosition))
+            if (RectTransformUtility.RectangleContainsScreenPoint(childRectTransform, Input.mousePosition) && towerUpgradeCanvas.activeSelf)
             {
                 // Mouse is over a child object
                 isMouseOverChildObject = true;
